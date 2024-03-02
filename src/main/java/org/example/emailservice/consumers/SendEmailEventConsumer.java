@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.emailservice.dtos.SendEmailEventDto;
 import org.example.emailservice.utils.EmailUtil;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Properties;
 
+@Service
 public class SendEmailEventConsumer {
 
     private ObjectMapper objectMapper;
@@ -50,7 +52,8 @@ public class SendEmailEventConsumer {
         };
         Session session = Session.getInstance(props, auth);
 
-        EmailUtil.sendEmail(session,
+        EmailUtil.sendEmail(
+                session,
                 to,
                 subject,
                 body);
